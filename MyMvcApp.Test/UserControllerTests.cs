@@ -94,5 +94,25 @@ namespace MyMvcApp.Test
             Assert.Equal("Index", redirectToActionResult.ActionName);
             Assert.Equal(1, _users.Count);
         }
+
+        // [Fact]
+        // public void Search_ReturnsCorrectResults()
+        // {
+        //     // Arrange
+        //     var controller = new UserController();
+        //     controller.Users = new List<User>
+        //     {
+        //         new User { Id = 1, Name = "Alice", Email = "alice@example.com" },
+        //         new User { Id = 2, Name = "Bob", Email = "bob@example.com" }
+        //     };
+
+        //     // Act
+        //     var result = controller.Search("Alice") as ViewResult;
+        //     var model = result.Model as List<User>;
+
+        //     // Assert
+        //     Assert.Single(model);
+        //     Assert.Equal("Alice", model.First().Name);
+        // }
     }
 }
