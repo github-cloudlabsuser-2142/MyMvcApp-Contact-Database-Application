@@ -107,6 +107,12 @@ public class UserController : Controller
     // GET: User/Search
     public IActionResult Search(string query)
     {
+        if (string.IsNullOrEmpty(query))
+        {
+            // Retorna una vista con una lista vacía si el query es nulo o vacío
+            return View(new List<User>());
+        }
+
         var results = Users.Where(u => u.Name.Contains(query) || u.Email.Contains(query)).ToList();
         return View(results);
     }
