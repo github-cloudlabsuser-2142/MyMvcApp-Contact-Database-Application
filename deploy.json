@@ -4,71 +4,51 @@
   "resources": [
     {
       "type": "Microsoft.Web/serverfarms",
-      "apiVersion": "2021-02-01",
+      "apiVersion": "2022-03-01",
       "name": "[parameters('appServicePlanName')]",
       "location": "[parameters('location')]",
       "sku": {
         "name": "F1",
-        "tier": "Free"
+        "tier": "Free",
+        "size": "F1",
+        "family": "F",
+        "capacity": 1
       },
-      "properties": {
-        "reserved": true
-      }
+      "properties": {}
     },
     {
       "type": "Microsoft.Web/sites",
-      "apiVersion": "2021-02-01",
+      "apiVersion": "2022-03-01",
       "name": "[parameters('webAppName')]",
       "location": "[parameters('location')]",
       "dependsOn": [
         "[resourceId('Microsoft.Web/serverfarms', parameters('appServicePlanName'))]"
       ],
       "properties": {
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('appServicePlanName'))]",
-        "siteConfig": {
-          "appSettings": []
-        }
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('appServicePlanName'))]"
       }
-    },
-    {
-      "type": "Microsoft.Storage/storageAccounts",
-      "apiVersion": "2021-02-01",
-      "name": "[parameters('storageAccountName')]",
-      "location": "[parameters('location')]",
-      "sku": {
-        "name": "Standard_LRS"
-      },
-      "kind": "StorageV2",
-      "properties": {}
     }
   ],
   "parameters": {
     "location": {
       "type": "string",
-      "defaultValue": "West US 2",
+      "defaultValue": "[resourceGroup().location]",
       "metadata": {
-        "description": "Location for all resources."
+        "description": "Location for the resources."
       }
     },
     "appServicePlanName": {
       "type": "string",
-      "defaultValue": "myAppServicePlan4",
+      "defaultValue": "MyAppServicePlan",
       "metadata": {
-        "description": "Nombre del plan de servicio de la aplicación"
+        "description": "Name of the App Service Plan."
       }
     },
     "webAppName": {
       "type": "string",
-      "defaultValue": "myWebApp4",
+      "defaultValue": "MyMvcApp",
       "metadata": {
-        "description": "Nombre de la aplicación web"
-      }
-    },
-    "storageAccountName": {
-      "type": "string",
-      "defaultValue": "mystorageaccount4",
-      "metadata": {
-        "description": "Nombre de la cuenta de almacenamiento"
+        "description": "Name of the Web App."
       }
     }
   }
